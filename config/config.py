@@ -1,0 +1,14 @@
+import toml
+
+
+class Config:
+    def __init__(self, config_file: str):
+        try:
+            self.config = toml.load(config_file)
+        except FileNotFoundError as ex:
+            print(f"Config file <{config_file}> not found: {ex}")
+        except (TypeError, toml.TomlDecodeError) as ex:
+            print(f"Error loading config file <{config_file}>: {ex}")
+
+        self.owner_id = int(self.config["owner_id"])
+        self.token = str(self.config["api_tokens"]["discord"])

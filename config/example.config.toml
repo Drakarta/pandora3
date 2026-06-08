@@ -1,0 +1,3 @@
+owner_id = 123 #Your Discord user ID goes here
+[api_tokens]
+discord = "Token" #Your Discord bot token goes here
