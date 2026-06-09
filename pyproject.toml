@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "aiosqlite>=0.22.1",
     "hikari-lightbulb>=3.2.4",
     "sqlmodel>=0.0.38",
     "toml>=0.10.2",

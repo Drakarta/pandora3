@@ -12,3 +12,4 @@ class Config:
 
         self.owner_id = int(self.config["owner_id"])
         self.token = str(self.config["api_tokens"]["discord"])
+        self.database = str(self.config["database"]["url"])
