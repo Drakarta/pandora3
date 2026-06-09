@@ -49,8 +49,7 @@ class Role(lightbulb.SlashCommand, name="role", description="Manage roles."):
             await self.create_role(ctx, self.name, self.colour)
             return
 
-        print(dir(ctx))
-        await ctx.edit_response("@original", content="[TEST] Role will be updated.")
+        await self.update_role(ctx, res.role_id, self.name, self.colour)
 
     async def create_role(self, ctx: lightbulb.Context, name: str, colour: str):
         kwargs = {}
@@ -89,9 +88,20 @@ class Role(lightbulb.SlashCommand, name="role", description="Manage roles."):
         )
 
     async def update_role(
-        self, ctx: lightbulb.Context, name: str | None, colour: str | None
+        self, ctx: lightbulb.Context, role_id: int, name: str | None, colour: str | None
     ):
-        pass
+        role = await ctx.client.app.rest.fetch_role(ctx.guild_id, role_id)
+        kwargs = {}
+        if name:
+            kwargs["name"] = name
+        if colour:
+            kwargs["colour"] = hikari.Colour.of(colour)
+
+        await ctx.client.app.rest.edit_role(ctx.guild_id, role_id, **kwargs)
+
+        await ctx.edit_response(
+            "@original", content=f'Role "{role.name}" updated successfully.'
+        )
 
 
 extension = Roles()
